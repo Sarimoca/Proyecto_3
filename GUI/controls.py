@@ -254,7 +254,7 @@ class ControlPanel(tk.Frame):
             self.simulation_core.block_route(edge_id, blocked)
             action = "bloqueada" if blocked else "desbloqueada"
             messagebox.showinfo("Éxito", f"Ruta {source} → {target} {action}")
-            self.parent.set_status(f"Ruta {source}-{target} {action}")
+            #self.parent.set_status(f"Ruta {source}-{target} {action}")
         
     def show_recommendations(self):
         """Muestra recomendaciones de puntos críticos"""

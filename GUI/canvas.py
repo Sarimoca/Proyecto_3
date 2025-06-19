@@ -1,6 +1,7 @@
 import tkinter as tk
 import time
 from Utils.config import *
+import random
 
 class Canvas(tk.Canvas):
     def __init__(self, parent, simulation_core, **kwargs):
@@ -11,18 +12,18 @@ class Canvas(tk.Canvas):
         self.edges = {}     # Diccionario de aristas dibujadas
         self.highlighted_route = None
         self.bind("<Button-1>", self.on_canvas_click)
-        
     def draw_node(self, node):
         """Dibuja un nodo con efecto de confirmación"""
         x, y = node.x, node.y
-        # Dibujar con color verde temporal
+        # Dibujar con color aleatorio
+        node_color = self.rgb_to_hex((random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
         node_circle = self.create_oval(x-NODE_RADIUS, y-NODE_RADIUS,
                                      x+NODE_RADIUS, y+NODE_RADIUS,
-                                     fill="green", outline="black", width=2)
+                                     fill=node_color, outline="black", width=2)
         node_label = self.create_text(x, y+NODE_RADIUS+15, text=node.name, font=("Arial", 10))
         
         # Restaurar color después de 1 segundo
-        self.after(1000, lambda: self.itemconfig(node_circle, fill=NODE_COLOR))
+        #self.after(1000, lambda: self.itemconfig(node_circle, fill=NODE_COLOR))
         
         self.nodes[node.id] = (node_circle, node_label, node)
         
@@ -36,7 +37,7 @@ class Canvas(tk.Canvas):
         x1, y1 = source_node.x, source_node.y
         x2, y2 = target_node.x, target_node.y
         
-        # Dibujar con color verde temporal
+        # Dibujar con color verde 
         edge_line = self.create_line(x1, y1, x2, y2, fill="green", width=3, arrow=tk.LAST)
         
         # Efecto de parpadeo
@@ -50,15 +51,9 @@ class Canvas(tk.Canvas):
                 time.sleep(0.1)
         
         self.after(100, blink)
+        self.edges[edge.id] = (edge_line, None, edge)
         
-        # Restaurar color según estado
-        def set_final_color():
-            color = BLOCKED_EDGE_COLOR if edge.blocked else EDGE_COLOR
-            self.itemconfig(edge_line, fill=color)
-            if edge.blocked:
-                self.itemconfig(edge_line, dash=(4, 2))
-        
-        self.after(1500, set_final_color)
+
         
     def update_edge(self, data):
         """Actualiza el estado de una arista (bloqueada o no)"""
@@ -66,16 +61,17 @@ class Canvas(tk.Canvas):
         if edge_id in self.edges:
             edge_line, weight_label, edge = self.edges[edge_id]
             edge.blocked = blocked
-            
+            print(blocked)
             # Actualizar color
-            color = BLOCKED_EDGE_COLOR if blocked else EDGE_COLOR
+            color = "red" if blocked else "green"
             self.itemconfig(edge_line, fill=color)
-            
             # Actualizar patrón de línea
             if blocked:
                 self.itemconfig(edge_line, dash=(4, 2))
             else:
                 self.itemconfig(edge_line, dash="")
+
+        self.update()
         
     def add_vehicle(self, vehicle):
         """Añade un vehículo al canvas"""
