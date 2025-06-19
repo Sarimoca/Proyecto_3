@@ -6,7 +6,7 @@ class MainWindow(tk.Tk):
     def __init__(self, simulation_core):
         super().__init__()
         self.title("Traffic Simulator")
-        self.geometry("1200x600")
+        self.geometry("1200x800")
         self.simulation_core = simulation_core
         
         # Barra de estado
