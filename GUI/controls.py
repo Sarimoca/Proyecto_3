@@ -167,7 +167,7 @@ class ControlPanel(tk.Frame):
             
         node_id = self.simulation_core.add_node(name, x, y)
         messagebox.showinfo("Éxito", f"Nodo '{name}' creado en posición ({x}, {y})")
-        self.parent.set_status(f"Nodo '{name}' agregado exitosamente")
+        self.simulation_core.event_manager.notify("status_update", f"Nodo '{name}' agregado exitosamente")
         
         # Limpiar campos y enfocar el campo de nombre
         self.node_name.delete(0, tk.END)
@@ -205,7 +205,7 @@ class ControlPanel(tk.Frame):
             
         self.simulation_core.add_edge(from_id, to_id, weight, self.bidirectional.get())
         messagebox.showinfo("Éxito", f"Carretera creada: {from_name} ↔ {to_name} ({weight} km)")
-        self.parent.set_status(f"Carretera {from_name}-{to_name} añadida")
+        self.simulation_core.event_manager.notify("status_update", f"Carretera {from_name}-{to_name} añadida")
         
         # Limpiar campos y enfocar el campo 'Desde'
         self.edge_from.set('')
@@ -257,7 +257,7 @@ class ControlPanel(tk.Frame):
             self.simulation_core.block_route(edge_id, blocked)
             action = "bloqueada" if blocked else "desbloqueada"
             messagebox.showinfo("Éxito", f"Ruta {source} → {target} {action}")
-            #self.parent.set_status(f"Ruta {source}-{target} {action}")
+            self.parent.set_status(f"Ruta {source}-{target} {action}")
         
     def show_recommendations(self):
         """Muestra recomendaciones de puntos críticos"""

@@ -47,6 +47,7 @@ class MainWindow(tk.Tk):
         self.simulation_core.event_manager.subscribe("simulation_updated", self.canvas.update_vehicles)
         self.simulation_core.event_manager.subscribe("route_blocked", self.canvas.update_edge)
         self.simulation_core.event_manager.subscribe("vehicle_route_updated", self.canvas.highlight_vehicle_route)
+        self.simulation_core.event_manager.subscribe("status_update", self.set_status)
         
     def run(self):
         # Iniciar el loop de actualización de la simulación
