@@ -6,7 +6,7 @@ class MainWindow(tk.Tk):
     def __init__(self, simulation_core):
         super().__init__()
         self.title("Traffic Simulator")
-        self.geometry("1200x600")
+        self.geometry("1200x800")
         self.simulation_core = simulation_core
         
         # Barra de estado
@@ -55,7 +55,8 @@ class MainWindow(tk.Tk):
         
     def update_simulation(self):
         if self.simulation_core.running:
-            self.simulation_core.update_simulation(0.1)  # Actualizar cada 100 ms
+
+            self.simulation_core.update_simulation(0.1* self.simulation_core.speed_factor)  # Actualizar cada 100 ms
         
         # Programar la próxima actualización
-        self.after(100, self.update_simulation)
+        self.after(int(100 / self.simulation_core.speed_factor), self.update_simulation)

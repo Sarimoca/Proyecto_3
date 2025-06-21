@@ -75,10 +75,13 @@ class ControlPanel(tk.Frame):
         sim_frame = tk.LabelFrame(self, text="Control de Simulación", padx=5, pady=5)
         sim_frame.pack(fill=tk.X, padx=5, pady=5)
         
+
+
         tk.Label(sim_frame, text="Velocidad:").grid(row=0, column=0, sticky=tk.W)
         self.speed_scale = tk.Scale(sim_frame, from_=0.1, to=5, resolution=0.1, 
                                    orient=tk.HORIZONTAL, length=150)
         self.speed_scale.set(1.0)
+        self.speed_scale.bind("<Motion>", self.set_speed)
         self.speed_scale.grid(row=0, column=1, padx=5, pady=2)
         
         btn_frame = tk.Frame(sim_frame)
@@ -227,7 +230,7 @@ class ControlPanel(tk.Frame):
         self.btn_start.config(state=tk.NORMAL)
         self.btn_pause.config(state=tk.DISABLED)
         
-    def set_speed(self):
+    def set_speed(self,event=None):
         """Establece la velocidad de la simulación"""
         speed = self.speed_scale.get()
         self.simulation_core.set_speed_factor(speed)

@@ -161,5 +161,5 @@ class Canvas(tk.Canvas):
             self.simulation_core.event_manager.notify("vehicle_selected", closest_vehicle)
     
     def rgb_to_hex(self, rgb):
-        """Convierte un color RGB a formato hexadecimal para tkinter"""
+        """Convierte un color RGB a formato hexadecimal"""
         return f'#{rgb[0]:02x}{rgb[1]:02x}{rgb[2]:02x}'
