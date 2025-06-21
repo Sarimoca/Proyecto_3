@@ -23,7 +23,7 @@ class ControlPanel(tk.Frame):
         node_frame.pack(fill=tk.X, padx=5, pady=5)
         
         tk.Label(node_frame, text="Nombre:").grid(row=0, column=0, sticky=tk.W)
-        self.node_name = tk.Entry(node_frame, width=15)
+        self.node_name = tk.Entry(node_frame, width=25)
         self.node_name.grid(row=0, column=1, padx=5, pady=2)
         
         tk.Label(node_frame, text="Posición X:").grid(row=1, column=0, sticky=tk.W)
@@ -42,11 +42,11 @@ class ControlPanel(tk.Frame):
         edge_frame.pack(fill=tk.X, padx=5, pady=5)
         
         tk.Label(edge_frame, text="Desde:").grid(row=0, column=0, sticky=tk.W)
-        self.edge_from = ttk.Combobox(edge_frame, width=12)
+        self.edge_from = ttk.Combobox(edge_frame, width=20)
         self.edge_from.grid(row=0, column=1, padx=5, pady=2)
         
         tk.Label(edge_frame, text="Hacia:").grid(row=1, column=0, sticky=tk.W)
-        self.edge_to = ttk.Combobox(edge_frame, width=12)
+        self.edge_to = ttk.Combobox(edge_frame, width=20)
         self.edge_to.grid(row=1, column=1, padx=5, pady=2)
         
         tk.Label(edge_frame, text="Distancia (km):").grid(row=2, column=0, sticky=tk.W)
@@ -98,7 +98,7 @@ class ControlPanel(tk.Frame):
         block_frame.pack(fill=tk.X, padx=5, pady=5)
         
         tk.Label(block_frame, text="Arista ID:").grid(row=0, column=0, sticky=tk.W)
-        self.block_id = ttk.Combobox(block_frame, width=12)
+        self.block_id = ttk.Combobox(block_frame, width=25)
         self.block_id.grid(row=0, column=1, padx=5, pady=2)
         
         btn_block = tk.Button(block_frame, text="Bloquear", command=lambda: self.block_route(True))
